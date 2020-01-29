@@ -24,6 +24,11 @@ Les données préchargés sont
 La connexion et l'enregistrement des utilisateurs sont déjà configurés et opérationnels
 
 
+# Paramétrage
+
+Modifier le fichier parameters.yml
+
+
 # Installation
 - ```composer install```
 - ```composer init-db ```
