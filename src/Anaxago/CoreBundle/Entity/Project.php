@@ -42,6 +42,13 @@ class Project
      */
     private $description;
 
+    /**
+     * @var bool
+     * 
+     * @ORM\Column(name="financed", type="boolean")
+     */
+    private $financed;
+
 
     /**
      * Get id
@@ -123,6 +130,30 @@ class Project
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set financed
+     *
+     * @param bool $financed
+     *
+     * @return Project
+     */
+    public function setFinanced($financed)
+    {
+        $this->financed = $financed;
+
+        return $this;
+    }
+
+    /**
+     * Get financed
+     *
+     * @return bool
+     */
+    public function getFinanced()
+    {
+        return $this->financed;
     }
 }
 
