@@ -1,3 +1,7 @@
+app:
+    resource: "@AnaxagoCoreBundle/Controller/"
+    type: annotation
+    
 anaxago_core:
     resource: "@AnaxagoCoreBundle/Resources/config/routing.yml"
     prefix:   /
@@ -13,6 +17,6 @@ anaxago_core_registration:
     path: /register
     defaults: { _controller: AnaxagoCoreBundle:Security:registration }
 
-projects_list:
-    path: /projects
-    defaults: { _controller: AnaxagoCoreBundle:Project:getProjects }
+#projects_list:
+  #  path: /projects
+   # defaults: { _controller: AnaxagoCoreBundle:Project:getProjects }
