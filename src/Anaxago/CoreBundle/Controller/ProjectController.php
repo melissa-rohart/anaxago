@@ -7,11 +7,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Anaxago\CoreBundle\Entity\Project;
 use Anaxago\CoreBundle\Entity\User;
 use Anaxago\CoreBundle\Entity\Investment;
+use Unirest;
+use Unirest\Request\Body;
 
 /**
  * Class ProjectController
@@ -21,60 +24,33 @@ use Anaxago\CoreBundle\Entity\Investment;
 class ProjectController extends Controller
 {
     /**
-     * @Route("/api/projects", name="projects_list")
-     * @Method({"GET"})
-     */
-    public function getProjectsAction(Request $request)
-    {
-        $projects = $this->get('doctrine.orm.entity_manager')->getRepository(Project::class)->findAll();
-        /* @var $projects Project[] */
-
-        $formatted = [];
-        foreach ($projects as $project) {
-            $formatted[] = [
-               'id' => $project->getId(),
-               'title' => $project->getTitle(),
-               'description' => $project->getDescription(),
-               'financed' => $project->getFinanced()
-            ];
-        }
-
-        return new JsonResponse($formatted);
-    }
-
-    /**
-     * @Route("/api/investment", name="add_invesment")
-     * @Method({"POST"})
-     */
-    public function addInvestmentAction(Request $request, EntityManagerInterface $entityManager)
-    {
-        $body = json_decode($request->getContent(), true);
-
-        $project = $entityManager->getRepository(Project::class)->find($body['project']);
-        $user = $entityManager->getRepository(User::class)->find($body['user']);
-
-        $investment = new Investment();
-        $investment->setAsset($body['amount']);
-        $investment->setProject($project);
-        $investment->setUser($user);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($investment);
-        $em->flush();
-
-        return new JsonResponse('ok');
-    }
-
-    /**
-     * @Route("/api/simulation", name="invesment_simulation")
-     * @Method({"POST"})
+     * @Route("/simulation", name="invesment_simulation")
      */
     public function simulateInvestmentAction(Request $request)
     {
-        $body = json_decode($request->getContent(), true);
+        $headers = array('Accept' => 'application/json');
+        $duration = $request->request->get('duration');
+        $asset = $request->request->get('asset');
+        $body = Body::Json(array('duration' => $duration, 'interest_rate' => 1, 'asset' => $asset));
 
-        $formatted = [ 'result' => $body['asset'] / ($body['duration']*12) ];
+        $response = Unirest\Request::post("http://localhost:8888/anaxago-starter-kit/web/app_dev.php/api/simulation", $headers, $body);
 
-        return new JsonResponse($formatted);
+        return new Response($response->body->result);
+    }
+
+    /**
+     * @Route("/invesment", name="add_invesment")
+     */
+    public function investmentAction(Request $request) 
+    {
+        $headers = array('Accept' => 'application/json');
+        $amount = $request->request->get('amount');
+        $user = $request->request->get('user');
+        $project = $request->request->get('project');
+        $body = Body::Json(array('amount' => $amount, 'user' => $user, 'project' => $project));
+
+        $response = Unirest\Request::post("http://localhost:8888/anaxago-starter-kit/web/app_dev.php/api/investment", $headers, $body);
+
+        return new Response();
     }
 }

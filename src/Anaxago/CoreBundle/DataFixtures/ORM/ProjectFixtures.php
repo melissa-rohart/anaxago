@@ -46,16 +46,22 @@ class ProjectFixtures extends Fixture
                 'name' => 'Fred de la compta',
                 'description' => 'Dépoussiérer la comptabilité grâce à l\'intelligence artificielle',
                 'slug' => 'fred-compta',
+                'financed' => false,
+                'amount' => 350000
             ],
             [
                 'name' => 'Mojjo',
                 'description' => 'L\'intelligence artificielle au service du tennis : Mojjo transforme l\'expérience des joueurs et des fans de tennis grâce à une technologie unique de captation et de traitement de la donnée',
                 'slug' => 'mojjo',
+                'financed' => true,
+                'amount' => 645000
             ],
             [
                 'name' => 'Eole',
                 'description' => 'Projet de construction d\'une résidence de 80 logements sociaux à Petit-Bourg en Guadeloupe par le promoteur Orion.',
                 'slug' => 'eole',
+                'financed' => false,
+                'amount' => 780000
             ],
         ];
     }

@@ -7,10 +7,79 @@
 
             <p>{{project.description}}</p>
 
+            <p>{{project.amount}} euros</p>
+
+            <p>
+                {% if project.financed %}
+                    Projet financé
+                {% endif %}
+            </p>
+
             <p>{{project.investments|length}} intéressés</p>
 
-            <a class="btn btn-primary" role="button" href="#">Investir</a>
-            <a class="btn btn-primary" role="button" href="#">Simuler</a>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModalTwo">Investir</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Simuler</button>
+
+            <!-- Modal -->
+            <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Simuler mon investissement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <p>
+                                <label>Durée de l'investissement</label>
+                                <input type="text" id="input_duration"/>
+                            </p>
+                            <p>
+                                <label>Montant de l'investissement</label>
+                                <input type="text" id="input_asset"/>
+                            </p>
+                            <p>
+                                Taux d'intérêt : 1%
+                            </p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-simulation">Simuler</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal" tabindex="-1" role="dialog" id="myModalTwo">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Investir</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <p>
+                                <label>Montant de l'investissement</label>
+                                <input type="text" id="input_amount"/>
+                                <input type="hidden" id="input_user" value="{{app.user.id}}"/>
+                                <input type="hidden" id="input_project" value="{{project.id}}"/>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-invesment">Investir</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

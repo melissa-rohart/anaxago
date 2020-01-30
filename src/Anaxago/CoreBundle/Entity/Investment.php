@@ -29,12 +29,12 @@ class Investment
     private $asset;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Anaxago\CoreBundle\Entity\User", inversedBy="User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Anaxago\CoreBundle\Entity\User", inversedBy="investments", cascade={"persist"})
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Anaxago\CoreBundle\Entity\Project", inversedBy="Project", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Anaxago\CoreBundle\Entity\Project", inversedBy="investments", cascade={"persist"})
      */
     private $project;
 

@@ -50,6 +50,13 @@ class Project
     private $financed;
 
     /**
+     * @var integer
+     * 
+     * @ORM\Column(name="amount", type="integer")
+     */
+    private $amount;
+
+    /**
      * @ORM\OneToMany(targetEntity="Anaxago\CoreBundle\Entity\Investment", mappedBy="project", cascade={"persist"})
      */
     private $investments;
@@ -163,6 +170,30 @@ class Project
     public function getFinanced()
     {
         return $this->financed;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param integer $amount
+     *
+     * @return Project
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return integer
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 
     public function getInvestments()
