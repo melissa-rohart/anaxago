@@ -53,6 +53,13 @@ class ApiController extends Controller
         $project = $entityManager->getRepository(Project::class)->find($body['project']);
         $user = $entityManager->getRepository(User::class)->find($body['user']);
 
+        $newFinancementProject = $project->getFinancement() + $body['amount'];
+        $project->setFinancement($newFinancementProject);
+
+        if($newFinancementProject >= $project->getAmount()) {
+            $project->setFinanced(true);
+        }
+
         $investment = new Investment();
         $investment->setAsset($body['amount']);
         $investment->setProject($project);
