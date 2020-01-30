@@ -53,7 +53,7 @@ class Investment
      *
      * @param integer $asset
      *
-     * @return Project
+     * @return Investment
      */
     public function setAsset($asset)
     {
@@ -72,9 +72,37 @@ class Investment
         return $this->asset;
     }
 
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Investment
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set project
+     *
+     * @param Project $project
+     *
+     * @return Investment
+     */
+    public function setProject($project)
+    {
+        $this->project = $project;
+
+        return $this;
     }
 
     public function getProject()

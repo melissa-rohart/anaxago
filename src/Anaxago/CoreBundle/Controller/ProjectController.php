@@ -8,7 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Anaxago\CoreBundle\Entity\Project;
+use Anaxago\CoreBundle\Entity\User;
+use Anaxago\CoreBundle\Entity\Investment;
 
 /**
  * Class ProjectController
@@ -43,8 +46,23 @@ class ProjectController extends Controller
      * @Route("/api/investment", name="add_invesment")
      * @Method({"POST"})
      */
-    public function addInvestmentAction(Request $request)
+    public function addInvestmentAction(Request $request, EntityManagerInterface $entityManager)
     {
+        $body = json_decode($request->getContent(), true);
+
+        $project = $entityManager->getRepository(Project::class)->find($body['project']);
+        $user = $entityManager->getRepository(User::class)->find($body['user']);
+
+        $investment = new Investment();
+        $investment->setAsset($body['amount']);
+        $investment->setProject($project);
+        $investment->setUser($user);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($investment);
+        $em->flush();
+
+        return new JsonResponse('ok');
     }
 
     /**
