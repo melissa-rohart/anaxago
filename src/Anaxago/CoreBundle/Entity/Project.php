@@ -49,6 +49,15 @@ class Project
      */
     private $financed;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Anaxago\CoreBundle\Entity\Investment", mappedBy="project", cascade={"persist"})
+     */
+    private $investments;
+
+    public function __construct()
+    {
+        $this->investments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -154,6 +163,11 @@ class Project
     public function getFinanced()
     {
         return $this->financed;
+    }
+
+    public function getInvestments()
+    {
+      return $this->investments;
     }
 }
 

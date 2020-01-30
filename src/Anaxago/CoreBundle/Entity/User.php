@@ -76,6 +76,16 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\OneToMany(targetEntity="Anaxago\CoreBundle\Entity\Investment", mappedBy="user", cascade={"persist"})
+     */
+    private $investments;
+
+    public function __construct()
+    {
+        $this->investments = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -276,5 +286,10 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
+    }
+
+    public function getInvestments()
+    {
+      return $this->investments;
     }
 }

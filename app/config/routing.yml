@@ -16,7 +16,3 @@ logout:
 anaxago_core_registration:
     path: /register
     defaults: { _controller: AnaxagoCoreBundle:Security:registration }
-
-#projects_list:
-  #  path: /projects
-   # defaults: { _controller: AnaxagoCoreBundle:Project:getProjects }
