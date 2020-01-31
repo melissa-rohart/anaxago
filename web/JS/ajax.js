@@ -11,7 +11,7 @@ $(document).ready(function(){
             type : 'POST', 
             data : {duration: duration, asset: asset},
             success : function(data) {
-                $('form').append('<p id="amount">' + data + '</p>');
+                $('#form-simulation').append('<p id="amount">' + data + '</p>');
             }
          });
 
@@ -19,6 +19,7 @@ $(document).ready(function(){
 
     $("#btn-invesment").click(function(){
 
+        $('#amount').remove();
         let amount = $('#input_amount').val();
         let user = $('#input_user').val();;
         let project = $('#input_project').val();

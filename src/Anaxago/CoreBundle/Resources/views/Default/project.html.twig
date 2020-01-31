@@ -17,8 +17,10 @@
 
             <p>{{project.investments|length}} intéressés</p>
 
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModalTwo">Investir</button>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Simuler</button>
+            {% if app.user %}
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModalTwo">Investir</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Simuler</button>
+            {% endif %}
 
             <!-- Modal -->
             <div class="modal" tabindex="-1" role="dialog" id="myModal">
@@ -31,7 +33,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="form-simulation">
                             <p>
                                 <label>Durée de l'investissement</label>
                                 <input type="text" id="input_duration"/>
@@ -68,7 +70,9 @@
                             <p>
                                 <label>Montant de l'investissement</label>
                                 <input type="text" id="input_amount"/>
-                                <input type="hidden" id="input_user" value="{{app.user.id}}"/>
+                                {% if app.user %}
+                                    <input type="hidden" id="input_user" value="{{app.user.id}}"/>
+                                {% endif %}
                                 <input type="hidden" id="input_project" value="{{project.id}}"/>
                             </p>
                         </form>

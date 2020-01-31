@@ -1,32 +1,10 @@
 Anaxago symfony-starter-kit
 ===================
 
-# Description
-
-Ce projet est un kit de démarage avec :
-- Symfony 3.4 minimum
-- php 7.1 minimum
-
-La base de données contient deux tables :
-- user => pour la gestion et la connexion des utilisateurs 
-- project => pour la liste des projets
-
-Les données préchargés sont
-- pour les users 
-
-| email     | password    | Role |
-| ----------|-------------|--------|
-| john@local.com  | john   | ROLE_USER    |
-| admin@local.com | admin | ROLE_ADMIN   | 
-
- - une liste de 3 projets
- 
-La connexion et l'enregistrement des utilisateurs sont déjà configurés et opérationnels
-
-
 # Paramétrage
 
-Modifier le fichier parameters.yml
+Modifier le fichier parameters.yml et mettre les informations de votre propre BDD
+
 
 
 # Installation
